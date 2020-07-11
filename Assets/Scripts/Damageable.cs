@@ -12,6 +12,11 @@ public class Damageable : MonoBehaviour {
     public float invincibilityFrames;
     private float timeSinceLastDamaged;
     public bool isInvincible;
+    public bool isDead {
+        get {
+            return health <= 0f;
+        }
+    }
 
     public void Start() {
         health = totalHealth;

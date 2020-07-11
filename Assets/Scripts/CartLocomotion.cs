@@ -26,6 +26,9 @@ public class CartLocomotion : MonoBehaviour {
     }
 
     private void Update() {
+        // Don't allow player input if the player's dead
+        if (Player.instance.damagable.isDead) return;
+
         // Temp: Re-orient everything upwards
         if (Input.GetKeyDown(KeyCode.Space)) {
             //car.transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
@@ -37,31 +40,34 @@ public class CartLocomotion : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        // Rotate the car
-        if (Input.GetKey(KeyCode.A)) {
-            car_rb.AddTorque(car.transform.up * -turnSpeed, ForceMode.Force);
-            //forwardDir += transform.right * -turnSpeed;
-        }  else if (Input.GetKey(KeyCode.D)) {
-            car_rb.AddTorque(car.transform.up * turnSpeed, ForceMode.Force);
-            //forwardDir += transform.right * turnSpeed;
-        } 
-        
+        // Don't allow player input if the player's dead
+        if (!Player.instance.damagable.isDead) {
+            // Rotate the car
+            if (Input.GetKey(KeyCode.A)) {
+                car_rb.AddTorque(car.transform.up * -turnSpeed, ForceMode.Force);
+                //forwardDir += transform.right * -turnSpeed;
+            }  else if (Input.GetKey(KeyCode.D)) {
+                car_rb.AddTorque(car.transform.up * turnSpeed, ForceMode.Force);
+                //forwardDir += transform.right * turnSpeed;
+            } 
+            
 
-        // Roll the sphere, in the direction of the car's forward dir
-        if (Input.GetKey(KeyCode.W)) {
-            rb.AddForce(car.transform.forward * forwardSpeed, ForceMode.Force);
-        } else if (Input.GetKey(KeyCode.S)) {
-            rb.AddForce(car.transform.forward * -forwardSpeed, ForceMode.Force);
+            // Roll the sphere, in the direction of the car's forward dir
+            if (Input.GetKey(KeyCode.W)) {
+                rb.AddForce(car.transform.forward * forwardSpeed, ForceMode.Force);
+            } else if (Input.GetKey(KeyCode.S)) {
+                rb.AddForce(car.transform.forward * -forwardSpeed, ForceMode.Force);
+            }
+
+            // Temp: Scale ball
+            if (Input.GetKeyDown(KeyCode.P)) {
+                transform.localScale *= 1.1f;
+            } else if (Input.GetKeyDown(KeyCode.O)) {
+                transform.localScale /= 1.1f;
+            }
         }
 
         // Move the car towards the ball
         car_rb.MovePosition(transform.position);
-
-        // Temp: Scale ball
-        if (Input.GetKeyDown(KeyCode.P)) {
-            transform.localScale *= 1.1f;
-        } else if (Input.GetKeyDown(KeyCode.O)) {
-            transform.localScale /= 1.1f;
-        }
     }
 }
