@@ -17,10 +17,23 @@ public class CartLocomotion : MonoBehaviour {
 
     public float forwardSpeed;
     public float turnSpeed;
+    public float jumpHeightSpeed;
+    public float jumpFlipSpeed;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
         car_rb = car.GetComponent<Rigidbody>();
+    }
+
+    private void Update() {
+        // Temp: Re-orient everything upwards
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            //car.transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
+
+            rb.AddForce(Vector3.up * jumpHeightSpeed);
+            car_rb.AddForce(Vector3.up * jumpHeightSpeed, ForceMode.Impulse);
+            car_rb.AddTorque(car.transform.forward* jumpHeightSpeed, ForceMode.Impulse);
+        }
     }
 
     void FixedUpdate() {
@@ -49,11 +62,6 @@ public class CartLocomotion : MonoBehaviour {
             transform.localScale *= 1.1f;
         } else if (Input.GetKeyDown(KeyCode.O)) {
             transform.localScale /= 1.1f;
-        }
-
-        // Temp: Re-orient everything upwards
-        if (Input.GetKey(KeyCode.Space)) {
-            car.transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
         }
     }
 }

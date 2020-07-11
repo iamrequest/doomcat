@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour {
+    public Slider healthbar;
     public int health, totalHealth;
     public UnityEvent onDamaged, onHealthDepleted;
 
@@ -13,6 +15,13 @@ public class Damageable : MonoBehaviour {
 
     public void Start() {
         health = totalHealth;
+
+        if (healthbar != null) {
+            healthbar.minValue = 0;
+            healthbar.maxValue = totalHealth;
+            healthbar.value = health;
+            healthbar.wholeNumbers = true;
+        }
     }
 
     private void Update() {
@@ -29,8 +38,16 @@ public class Damageable : MonoBehaviour {
         if (isInvincible) return;
 
         health -= damage;
+
+        if (healthbar != null) {
+            healthbar.value = health;
+        }
+
+        // Invincibility frames
         timeSinceLastDamaged = 0f;
         isInvincible = true;
+
+
         onDamaged.Invoke();
 
         if (health <= 0) {
