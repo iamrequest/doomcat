@@ -4,9 +4,13 @@ using UnityEngine;
 using UnityEngine.VFX;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(AudioSource))]
 public class GroundChaserEnemy : MonoBehaviour {
     public float speed;
     private Rigidbody rb;
+    private AudioSource audioSource;
+    public AudioClip explosionWarningAudio;
+    public AudioClip explosionAudio;
 
     private bool isExploding;
     public VisualEffect explosionEffect;
@@ -36,6 +40,7 @@ public class GroundChaserEnemy : MonoBehaviour {
     private void Start() {
         rb = GetComponent<Rigidbody>();
         isExploding = false;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate() {
@@ -69,6 +74,10 @@ public class GroundChaserEnemy : MonoBehaviour {
         explosionEffect.enabled = true;
         explosionEffect.Play();
 
+        // Play explosion audio
+        audioSource.Stop();
+        audioSource.PlayOneShot(explosionAudio);
+
         // Disable the enemy
         // This should be refactored, lots of room for error
         foreach (Renderer r in renderersToDisable) {
@@ -93,6 +102,9 @@ public class GroundChaserEnemy : MonoBehaviour {
         }
     }
     public void ExplodeAfterDelay() {
+        // Play explosion warning audio
+        audioSource.PlayOneShot(explosionWarningAudio);
+
         StartCoroutine(_ExplodeAfterDelay());
     }
     private IEnumerator DestroyAfterExplosionLifespan() {
