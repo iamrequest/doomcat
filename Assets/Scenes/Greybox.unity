@@ -1774,7 +1774,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552661970}
-  m_LocalRotation: {x: -0.07827216, y: 0.000000016979385, z: 0.000000001333103, w: 0.996932}
+  m_LocalRotation: {x: -0.078272134, y: 0.000000018037857, z: 0.0000000014162064,
+    w: 0.996932}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3451,7 +3452,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1381485588}
-  m_LocalRotation: {x: -0.09639288, y: 0.0000000042815644, z: 4.1464313e-10, w: 0.9953434}
+  m_LocalRotation: {x: -0.09639288, y: -0.0000000042815644, z: -4.1464313e-10, w: 0.9953434}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5291,6 +5292,9 @@ MonoBehaviour:
   damageableLayers:
     serializedVersion: 2
     m_Bits: 1024
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2066703557
 GameObject:
   m_ObjectHideFlags: 0

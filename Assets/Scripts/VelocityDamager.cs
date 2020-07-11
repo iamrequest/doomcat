@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class VelocityDamager : MonoBehaviour {
     public float minVelocityToDamage;
     public int damage;
     public LayerMask damageableLayers;
+    public UnityEvent onDamage;
 
     public void OnCollisionEnter(Collision collision) {
         // Don't bother processing layers that we won't damage
@@ -19,6 +21,8 @@ public class VelocityDamager : MonoBehaviour {
 
             if (collisionForce > minVelocityToDamage) {
                 damageable.TakeDamage(damage);
+
+                onDamage.Invoke();
             }
         }
     }
