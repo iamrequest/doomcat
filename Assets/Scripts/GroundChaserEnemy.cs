@@ -1,27 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 [RequireComponent(typeof(Rigidbody))]
 public class GroundChaserEnemy : MonoBehaviour {
     public float speed;
     private Rigidbody rb;
 
-    [Header("Explosion")]
+    private bool isExploding;
+    public VisualEffect explosionEffect;
+    public float explosionEffectLifespan;
+
+    [Header("Explosion by radius")]
+    public float explosionTriggerRadius;
+    public float explosionDelay;
+
+    [Header("Force")]
     public float explosionForce;
     public float explosionRadius;
     public float explosionUpForce;
+
+    [Header("Damage")]
     public int explosionDamageRadius;
     public int explosionDamage;
 
+    // Big lazy
+    [Header("Disabled on Explosion")]
+    public List<Renderer> renderersToDisable;
+    public List<Collider> collidersToDisable;
+    public List<GameObject> gameobjectsToDisable;
+
+
+
     private void Start() {
         rb = GetComponent<Rigidbody>();
-    }
-
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.H)) {
-            Explode();
-        }
+        isExploding = false;
     }
 
     private void FixedUpdate() {
@@ -30,26 +44,59 @@ public class GroundChaserEnemy : MonoBehaviour {
         Vector3 movementDir = Vector3.ProjectOnPlane(dirToPlayer.normalized, Vector3.up);
 
         rb.AddForce(movementDir * speed, ForceMode.Force);
+
+        // If the enemy is close enough to the player, explode after a delay
+        if (!isExploding && dirToPlayer.magnitude < explosionTriggerRadius) {
+            ExplodeAfterDelay();
+        }
     }
 
     public void Explode() {
+        // Avoid multiple explostions
+        if (isExploding) return;
+        isExploding = true;
+
+        // Push the player away
         Player.instance.cartSphereRB.AddExplosionForce(explosionForce, transform.position, explosionRadius, explosionUpForce);
 
         // Calculate damage to the player
         float distanceToPlayer = Mathf.Abs((transform.position - Player.instance.catTransform.position).magnitude);
-
         if (distanceToPlayer < explosionDamageRadius) {
             Player.instance.damagable.TakeDamage(explosionDamage);
         }
+
+        // Play effect, disable mesh
+        explosionEffect.enabled = true;
+        explosionEffect.Play();
+
+        // Disable the enemy
+        // This should be refactored, lots of room for error
+        foreach (Renderer r in renderersToDisable) {
+            r.enabled = false;
+        }
+        foreach (Collider c in collidersToDisable) {
+            c.enabled = false;
+        }
+        foreach (GameObject g in gameobjectsToDisable) {
+            g.SetActive(false);
+        }
+        rb.isKinematic = true;
+
+        // Destroy the prefab after the explosion
+        StartCoroutine(DestroyAfterExplosionLifespan());
     }
 
-    private IEnumerator _ExplodeAfterDelay(float delay) {
-        yield return new WaitForSeconds(delay);
+    private IEnumerator _ExplodeAfterDelay() {
+        yield return new WaitForSeconds(explosionDelay);
         if (gameObject != null) {
             Explode();
         }
     }
-    public void ExplodeAfterDelay(float delay) {
-        StartCoroutine(_ExplodeAfterDelay(delay));
+    public void ExplodeAfterDelay() {
+        StartCoroutine(_ExplodeAfterDelay());
+    }
+    private IEnumerator DestroyAfterExplosionLifespan() {
+        yield return new WaitForSeconds(explosionEffectLifespan);
+        Destroy(transform.parent.gameObject);
     }
 }

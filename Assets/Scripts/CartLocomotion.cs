@@ -19,6 +19,9 @@ public class CartLocomotion : MonoBehaviour {
     public float turnSpeed;
     public float jumpHeightSpeed;
     public float jumpFlipSpeed;
+    public float kickflipJumpSpeed;
+    public float kickflipTurnSpeed;
+    public bool isGrounded;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
@@ -29,13 +32,20 @@ public class CartLocomotion : MonoBehaviour {
         // Don't allow player input if the player's dead
         if (Player.instance.damagable.isDead) return;
 
-        // Temp: Re-orient everything upwards
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            //car.transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
+        // Jump
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space)) {
+            rb.AddForce(Vector3.up * jumpHeightSpeed, ForceMode.Impulse);
+        }
 
-            rb.AddForce(Vector3.up * jumpHeightSpeed);
-            car_rb.AddForce(Vector3.up * jumpHeightSpeed, ForceMode.Impulse);
-            car_rb.AddTorque(car.transform.forward* jumpHeightSpeed, ForceMode.Impulse);
+        // Kickflip
+        if (Input.GetKey(KeyCode.E)) {
+            rb.AddForce(Vector3.up * kickflipJumpSpeed, ForceMode.Force);
+            car_rb.AddForce(Vector3.up * kickflipJumpSpeed, ForceMode.Force);
+            car_rb.AddTorque(car.transform.forward * -kickflipTurnSpeed, ForceMode.Force);
+        } else if (Input.GetKey(KeyCode.Q)) {
+            rb.AddForce(Vector3.up * kickflipJumpSpeed, ForceMode.Force);
+            car_rb.AddForce(Vector3.up * kickflipJumpSpeed, ForceMode.Force);
+            car_rb.AddTorque(car.transform.forward * kickflipTurnSpeed, ForceMode.Force);
         }
     }
 
@@ -49,8 +59,8 @@ public class CartLocomotion : MonoBehaviour {
             }  else if (Input.GetKey(KeyCode.D)) {
                 car_rb.AddTorque(car.transform.up * turnSpeed, ForceMode.Force);
                 //forwardDir += transform.right * turnSpeed;
-            } 
-            
+            }
+
 
             // Roll the sphere, in the direction of the car's forward dir
             if (Input.GetKey(KeyCode.W)) {
@@ -69,5 +79,12 @@ public class CartLocomotion : MonoBehaviour {
 
         // Move the car towards the ball
         car_rb.MovePosition(transform.position);
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        isGrounded = true;
+    }
+    private void OnCollisionExit(Collision collision) {
+        isGrounded = false;
     }
 }

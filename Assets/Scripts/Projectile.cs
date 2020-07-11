@@ -7,21 +7,26 @@ using UnityEngine.VFX;
 public class Projectile : MonoBehaviour {
     public VisualEffect explosionEffect;
     private Rigidbody rb;
-    private Collider collider;
-    private Renderer renderer;
+    private Collider projectilecollider;
+    private Renderer projectilerenderer;
+    private AudioSource audioSource;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
-        collider = GetComponent<Collider>();
-        renderer = GetComponent<Renderer>();
+        projectilecollider = GetComponent<Collider>();
+        projectilerenderer = GetComponent<Renderer>();
+        audioSource = GetComponent<AudioSource>();
+
+        audioSource.loop = false;
     }
 
     public void OnCollisionEnter(Collision collision) {
-        collider.enabled = false;
+        projectilecollider.enabled = false;
         rb.isKinematic = true;
-        renderer.enabled = false;
+        projectilerenderer.enabled = false;
 
         explosionEffect.enabled = true;
         explosionEffect.Play();
+        audioSource.Play();
     }
 }
