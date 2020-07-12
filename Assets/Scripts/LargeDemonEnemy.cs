@@ -7,6 +7,9 @@ using UnityEngine.VFX;
 [RequireComponent(typeof(AudioSource))]
 public class LargeDemonEnemy : MonoBehaviour {
     public float speed;
+
+    [Range(0f, 1f)]
+    public float turnSpeed;
     private Rigidbody rb;
     private AudioSource audioSource;
     public Transform lookatTargetTransform;
@@ -32,7 +35,7 @@ public class LargeDemonEnemy : MonoBehaviour {
 
         // -- Rotate to face player
         float angle = Mathf.Atan2(movementDir.x, movementDir.z) * Mathf.Rad2Deg;
-        rb.MoveRotation(Quaternion.Euler(0f, angle, 0f));
+        rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.Euler(0f,angle, 0f), turnSpeed));
 
 
         // -- Movement

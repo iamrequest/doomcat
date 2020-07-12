@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour {
     private Renderer projectilerenderer;
     private AudioSource audioSource;
 
-    private void Start() {
+    private void Awake () {
         rb = GetComponent<Rigidbody>();
         projectilecollider = GetComponent<Collider>();
         projectilerenderer = GetComponent<Renderer>();
