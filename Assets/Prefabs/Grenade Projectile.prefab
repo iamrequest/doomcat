@@ -261,7 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 512304860}
   doSplashDamage: 1
-  splashDamageRadius: 3
+  splashDamageRadius: 6
   splashDamage: 2
   splashDamageLayerMask:
     serializedVersion: 2

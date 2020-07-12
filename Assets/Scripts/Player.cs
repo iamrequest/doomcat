@@ -57,7 +57,7 @@ public class Player : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
     }
     private void Update() {
-        if (!isGameOver && Input.GetKeyDown(KeyCode.R)) {
+        if (!damagable.isDead && Input.GetKeyDown(KeyCode.R)) {
             Respawn();
         }
 
