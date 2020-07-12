@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.VFX;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Renderer))]
+[RequireComponent(typeof(AudioSource))]
 public class Projectile : MonoBehaviour {
     public VisualEffect explosionEffect;
     private Rigidbody rb;

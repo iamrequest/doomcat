@@ -15,6 +15,7 @@ public class CartLocomotion : MonoBehaviour {
     private Rigidbody car_rb;
     private Rigidbody rb;
 
+    public float verticalSphereOffset;
     public float forwardSpeed;
     public float turnSpeed;
     public float jumpHeightSpeed;
@@ -78,7 +79,7 @@ public class CartLocomotion : MonoBehaviour {
         }
 
         // Move the car towards the ball
-        car_rb.MovePosition(transform.position);
+        car_rb.MovePosition(transform.position + car.transform.up * verticalSphereOffset);
     }
 
     private void OnCollisionEnter(Collision collision) {
