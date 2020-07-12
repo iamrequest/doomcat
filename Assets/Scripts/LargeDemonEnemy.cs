@@ -24,12 +24,22 @@ public class LargeDemonEnemy : MonoBehaviour {
     public Transform attackSpawnTransform;
     public GameObject fireballPrefab;
 
+    [Header("Death Management")]
+    public float disappearTime;
+    private bool isDying;
+    public AudioClip deathAudio;
+    public List<Collider> colliders;
+    public GameObject ui;
+    public VisualEffect deathVFX;
+
     private void Start() {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate() {
+        if (isDying) return;
+
         Vector3 dirToPlayer = Player.instance.catTransform.position - transform.position;
         Vector3 movementDir = Vector3.ProjectOnPlane(dirToPlayer.normalized, Vector3.up);
 
@@ -77,5 +87,25 @@ public class LargeDemonEnemy : MonoBehaviour {
         if (target != null) {
             Destroy(target);
         }
+    }
+
+    public void Die() {
+        if (isDying) return;
+        isDying = true;
+
+        audioSource.enabled = true;
+        audioSource.PlayOneShot(deathAudio);
+
+        deathVFX.enabled = true;
+        deathVFX.Play();
+
+        // -- Disable things so that this enemy doesn't damage the player post-death
+        ui.SetActive(false);
+        foreach (Collider c in colliders) {
+            c.enabled = false;
+        }
+        rb.freezeRotation = false;
+
+        StartCoroutine(DestroyAfterLifespan(disappearTime, transform.parent.gameObject));
     }
 }
