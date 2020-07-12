@@ -15,6 +15,11 @@ public class Projectile : MonoBehaviour {
     private Renderer projectilerenderer;
     private AudioSource audioSource;
 
+    public bool doSplashDamage;
+    public float splashDamageRadius;
+    public int splashDamage;
+    public LayerMask splashDamageLayerMask;
+
     private void Awake () {
         rb = GetComponent<Rigidbody>();
         projectilecollider = GetComponent<Collider>();
@@ -25,6 +30,16 @@ public class Projectile : MonoBehaviour {
     }
 
     public void OnCollisionEnter(Collision collision) {
+        // Calculate damage
+        if (doSplashDamage) {
+            Collider[] collisions = Physics.OverlapSphere(transform.position, splashDamageRadius, splashDamageLayerMask);
+            foreach (Collider c in collisions) {
+                if (c.TryGetComponent(out Damageable damageable)) {
+                    damageable.TakeDamage(splashDamage);
+                }
+            }
+        }
+
         projectilecollider.enabled = false;
         rb.isKinematic = true;
         projectilerenderer.enabled = false;

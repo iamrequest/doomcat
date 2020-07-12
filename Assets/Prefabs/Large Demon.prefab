@@ -144,6 +144,30 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4577623590443562626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2871177102821826967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d968e7d3b60eca7439ed67718b23bb83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthbar: {fileID: 0}
+  health: 0
+  totalHealth: 0
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  onHealthDepleted:
+    m_PersistentCalls:
+      m_Calls: []
+  invincibilityFrames: 0
+  isInvincible: 0
+  parent: {fileID: 7458989234678013920}
 --- !u!114 &6123089316560911620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,12 +202,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1cedcd01b54a63449708a854b6acf04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 13
+  speed: 20
   turnSpeed: 0.03
   minChaseDistance: 10
   lookatTargetTransform: {fileID: 6123089316165159130}
-  attackCooldown: 5
-  fireballSpeed: 15
+  attackCooldown: 3
+  fireballSpeed: 20
   fireballLifespan: 3
   attackRadius: 10
   attackSpawnTransform: {fileID: 6123089316532957175}
@@ -194,30 +218,6 @@ MonoBehaviour:
   colliders: []
   ui: {fileID: 6123089315631122521}
   deathVFX: {fileID: 6123089316528835926}
---- !u!114 &4577623590443562626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2871177102821826967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d968e7d3b60eca7439ed67718b23bb83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthbar: {fileID: 0}
-  health: 0
-  totalHealth: 0
-  onDamaged:
-    m_PersistentCalls:
-      m_Calls: []
-  onHealthDepleted:
-    m_PersistentCalls:
-      m_Calls: []
-  invincibilityFrames: 0
-  isInvincible: 0
-  parent: {fileID: 7458989234678013920}
 --- !u!1 &6123089315631122521
 GameObject:
   m_ObjectHideFlags: 0

@@ -117,9 +117,9 @@ public class EnemySpawner : MonoBehaviour {
         yield return new WaitForSeconds(unregisterDelay);
 
         timeSinceLastSpawn = 0f;
-        numActiveEnemies--;
 
         if (enemy) {
+            numActiveEnemies--;
             activeEnemies.Remove(enemy);
             Destroy(enemy);
         } else {

@@ -28,6 +28,7 @@ public class GroundChaserEnemy : MonoBehaviour {
     [Header("Damage")]
     public int explosionDamageRadius;
     public int explosionDamage;
+    public Damageable damageable;
 
     // Big lazy
     [Header("Disabled on Explosion")]
@@ -90,6 +91,8 @@ public class GroundChaserEnemy : MonoBehaviour {
             g.SetActive(false);
         }
         rb.isKinematic = true;
+
+        damageable.onHealthDepleted.Invoke();
 
         // Destroy the prefab after the explosion
         //StartCoroutine(DestroyAfterExplosionLifespan());

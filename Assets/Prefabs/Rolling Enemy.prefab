@@ -183,19 +183,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c3ce604ec350e4885b340fc5e2c181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 20
   explosionWarningAudio: {fileID: 8300000, guid: b1ed165a5a622f1498f337512a9584f4,
     type: 3}
   explosionAudio: {fileID: 8300000, guid: 2c8cf700d0305394cb5d5131af2fa2e3, type: 3}
   explosionEffect: {fileID: 6400603753913113754}
   explosionEffectLifespan: 1
-  explosionTriggerRadius: 3
+  explosionTriggerRadius: 5
   explosionDelay: 1.5
   explosionForce: 2000
   explosionRadius: 10
-  explosionUpForce: 1
-  explosionDamageRadius: 5
+  explosionUpForce: 2
+  explosionDamageRadius: 8
   explosionDamage: 1
+  damageable: {fileID: 6400603753096086910}
   renderersToDisable:
   - {fileID: 3733123629328640262}
   - {fileID: 6400603753725749197}
