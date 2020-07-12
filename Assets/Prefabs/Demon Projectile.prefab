@@ -260,6 +260,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 512304860}
+  doSplashDamage: 1
+  splashDamageRadius: 2
+  splashDamage: 1
+  splashDamageLayerMask:
+    serializedVersion: 2
+    m_Bits: 768
 --- !u!82 &6454289561354595221
 AudioSource:
   m_ObjectHideFlags: 0
