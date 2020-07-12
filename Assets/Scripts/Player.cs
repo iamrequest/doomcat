@@ -28,8 +28,12 @@ public class Player : MonoBehaviour {
 
     public Transform catTransform;
     public Rigidbody cartSphereRB;
+    public CartLocomotion cart;
     public Damageable damagable;
     public Camera camera;
+    public EnemySpawner enemySpawner;
+    private Vector3 originalPosition;
+    private Quaternion originalRotation;
 
     [Header("Player death management")]
     // Player death management
@@ -46,15 +50,30 @@ public class Player : MonoBehaviour {
         gameoverUI1.SetActive(false);
         gameoverUI2.SetActive(false);
 
+        originalPosition = cart.transform.position;
+        originalRotation = cart.transform.rotation;
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
     private void Update() {
+        if (!isGameOver && Input.GetKeyDown(KeyCode.R)) {
+            Respawn();
+        }
+
         if (isGameOver && Input.GetKeyDown(KeyCode.Escape)) {
             SceneManager.LoadScene(0);
         }
         if (isGameOver && Input.GetKeyDown(KeyCode.Return)) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+            isGameOver = false;
+            gameoverUI1.SetActive(false);
+            gameoverUI2.SetActive(false);
+
+            enemySpawner.ResetGame();
+            damagable.SetHealthToMax();
+            Respawn();
         }
     }
 
@@ -74,5 +93,11 @@ public class Player : MonoBehaviour {
         // Enable player options
         isGameOver = true;
         gameoverUI2.SetActive(true);
+    }
+
+    public void Respawn() {
+        cart.transform.position = originalPosition;
+        cart.transform.rotation = originalRotation;
+        cart.ResetVelocity();
     }
 }

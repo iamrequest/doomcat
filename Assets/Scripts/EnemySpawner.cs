@@ -126,4 +126,15 @@ public class EnemySpawner : MonoBehaviour {
             Debug.LogError("Enemy disappeared before we could destroy it!");
         }
     }
+
+    public void ResetGame() {
+        foreach (GameObject enemy in activeEnemies) {
+            if (enemy != null) {
+                Destroy(enemy);
+            }
+        }
+
+        activeEnemies.Clear();
+        numActiveEnemies = 0;
+    }
 }

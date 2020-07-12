@@ -12,8 +12,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class CartLocomotion : MonoBehaviour {
     public GameObject car;
+    [Tooltip("The rigidbody of the actual cart")]
     private Rigidbody car_rb;
-    private Rigidbody rb;
+    [Tooltip("The rigidbody of the driving sphere")]
+    public Rigidbody rb;
 
     public float verticalSphereOffset;
     public float forwardSpeed;
@@ -87,5 +89,17 @@ public class CartLocomotion : MonoBehaviour {
     }
     private void OnCollisionExit(Collision collision) {
         isGrounded = false;
+    }
+
+    public void ResetVelocity() {
+        rb.velocity = Vector3.zero;
+        rb.rotation = Quaternion.identity;
+        car_rb.velocity = Vector3.zero;
+        car_rb.rotation = Quaternion.identity;
+    }
+
+    public void AddExplosionForce(float explosionForce, Vector3 position, float radius, float upForce) {
+        rb.AddExplosionForce(explosionForce, position, radius, upForce);
+        car_rb.AddExplosionForce(explosionForce, position, radius, upForce);
     }
 }

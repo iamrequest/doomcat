@@ -63,7 +63,9 @@ public class GroundChaserEnemy : MonoBehaviour {
         isExploding = true;
 
         // Push the player away
-        Player.instance.cartSphereRB.AddExplosionForce(explosionForce, transform.position, explosionRadius, explosionUpForce);
+        //Player.instance.cartSphereRB.AddExplosionForce(explosionForce, transform.position, explosionRadius, explosionUpForce);
+        //Player.instance.cart.rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, explosionUpForce);
+        Player.instance.cart.AddExplosionForce(explosionForce, transform.position, explosionRadius, explosionUpForce);
 
         // Calculate damage to the player
         float distanceToPlayer = Mathf.Abs((transform.position - Player.instance.catTransform.position).magnitude);

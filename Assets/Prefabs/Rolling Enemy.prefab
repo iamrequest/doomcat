@@ -191,7 +191,7 @@ MonoBehaviour:
   explosionEffectLifespan: 1
   explosionTriggerRadius: 5
   explosionDelay: 1.5
-  explosionForce: 2000
+  explosionForce: 7500
   explosionRadius: 10
   explosionUpForce: 2
   explosionDamageRadius: 8

@@ -59,4 +59,14 @@ public class Damageable : MonoBehaviour {
             onHealthDepleted.Invoke();
         }
     }
+
+    public void SetHealthToMax() {
+        health = totalHealth;
+        timeSinceLastDamaged = 0f;
+        isInvincible = false;
+
+        if (healthbar != null) {
+            healthbar.value = health;
+        }
+    }
 }
