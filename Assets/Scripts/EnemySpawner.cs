@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 // Simple enemy spawner, similar to Blasty Boy setup
 public class EnemySpawner : MonoBehaviour {
@@ -21,14 +23,26 @@ public class EnemySpawner : MonoBehaviour {
 
     public float unregisterDelay;
 
+    // At each level, increase the number of enemies to spawn
+    // The level increases over time, similar to risk of rain
+    [Header("Difficulty")]
+    public int addedEnemiesPerLevel;
+    public float levelDuration;
+    private float timeInLevel;
+    private int level;
+    public Slider uiSlider;
+    public TextMeshProUGUI uiText;
+
     // Start is called before the first frame update
     void Start() {
-        
+        uiSlider.maxValue = levelDuration;
+        uiSlider.minValue = 0f;
+        uiSlider.value = 0f;
     }
 
     // Update is called once per frame
     void Update() {
-        if (numActiveEnemies < maxNumActiveEnemies) {
+        if (activeEnemies.Count < maxNumActiveEnemies) {
             if (timeSinceLastSpawn > minSpawnDelay) {
                 SpawnEnemy();
             } else {
@@ -36,9 +50,18 @@ public class EnemySpawner : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.L)) {
-            SpawnEnemy();
+        //if (Input.GetKeyDown(KeyCode.L)) {
+        //    SpawnEnemy();
+        //}
+
+        // Attempt to advance to the next level
+        if (timeInLevel > levelDuration) {
+            timeInLevel = 0f;
+            maxNumActiveEnemies += addedEnemiesPerLevel;
+        } else {
+            timeInLevel += Time.deltaTime;
         }
+        UpdateUI();
     }
 
     public void SpawnEnemy() {
@@ -90,7 +113,7 @@ public class EnemySpawner : MonoBehaviour {
                     }
 
                     timeSinceLastSpawn = 0f;
-                    numActiveEnemies++;
+                    //numActiveEnemies++;
                     wasSpawnSuccessful = true;
                 } else {
                     Debug.Log("Failed to spawn above ground");
@@ -119,7 +142,7 @@ public class EnemySpawner : MonoBehaviour {
         timeSinceLastSpawn = 0f;
 
         if (enemy) {
-            numActiveEnemies--;
+            //numActiveEnemies--;
             activeEnemies.Remove(enemy);
             Destroy(enemy);
         } else {
@@ -135,6 +158,11 @@ public class EnemySpawner : MonoBehaviour {
         }
 
         activeEnemies.Clear();
-        numActiveEnemies = 0;
+        //numActiveEnemies = 0;
+    }
+
+    private void UpdateUI() {
+        uiSlider.value = timeInLevel;
+        uiText.text = "Enemies: " + activeEnemies.Count + " / " + maxNumActiveEnemies;
     }
 }
