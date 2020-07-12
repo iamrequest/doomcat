@@ -29,6 +29,7 @@ public class Player : MonoBehaviour {
     public Transform catTransform;
     public Rigidbody cartSphereRB;
     public Damageable damagable;
+    public Camera camera;
 
     [Header("Player death management")]
     // Player death management

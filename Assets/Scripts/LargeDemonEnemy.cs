@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
+// TODO: Refactor Vector3.magnitude calls for efficiency
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(AudioSource))]
 public class LargeDemonEnemy : MonoBehaviour {
@@ -10,6 +11,7 @@ public class LargeDemonEnemy : MonoBehaviour {
 
     [Range(0f, 1f)]
     public float turnSpeed;
+    public float minChaseDistance;
     private Rigidbody rb;
     private AudioSource audioSource;
     public Transform lookatTargetTransform;
@@ -50,7 +52,9 @@ public class LargeDemonEnemy : MonoBehaviour {
 
         // -- Movement
         // Move along the x/y plane in the direction of the player
-        rb.AddForce(movementDir * speed, ForceMode.Force);
+        if (dirToPlayer.magnitude > minChaseDistance) {
+            rb.AddForce(movementDir * speed, ForceMode.Force);
+        }
 
         // -- Look at player (ie: move head)
         // Move the anim rig lookat target gameobject to the player's position
@@ -106,6 +110,6 @@ public class LargeDemonEnemy : MonoBehaviour {
         }
         rb.freezeRotation = false;
 
-        StartCoroutine(DestroyAfterLifespan(disappearTime, transform.parent.gameObject));
+        //StartCoroutine(DestroyAfterLifespan(disappearTime, transform.parent.gameObject));
     }
 }

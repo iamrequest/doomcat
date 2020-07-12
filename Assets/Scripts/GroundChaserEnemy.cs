@@ -92,7 +92,7 @@ public class GroundChaserEnemy : MonoBehaviour {
         rb.isKinematic = true;
 
         // Destroy the prefab after the explosion
-        StartCoroutine(DestroyAfterExplosionLifespan());
+        //StartCoroutine(DestroyAfterExplosionLifespan());
     }
 
     private IEnumerator _ExplodeAfterDelay() {
@@ -107,8 +107,8 @@ public class GroundChaserEnemy : MonoBehaviour {
 
         StartCoroutine(_ExplodeAfterDelay());
     }
-    private IEnumerator DestroyAfterExplosionLifespan() {
-        yield return new WaitForSeconds(explosionEffectLifespan);
-        Destroy(transform.parent.gameObject);
-    }
+    //private IEnumerator DestroyAfterExplosionLifespan() {
+    //    yield return new WaitForSeconds(explosionEffectLifespan);
+    //    Destroy(transform.parent.gameObject);
+    //}
 }

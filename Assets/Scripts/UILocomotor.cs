@@ -9,11 +9,11 @@ public class UILocomotor : MonoBehaviour {
     public Transform followObject;
     public Vector3 followObjectOffset;
 
-    private void FixedUpdate() {
-        if (lookatTarget == null) {
-            lookatTarget = Player.instance.catTransform;
-        }
+    private void Start() {
+        lookatTarget = Player.instance.camera.transform;
+    }
 
+    private void FixedUpdate() {
         if (yRotConstrain) {
             Vector3 dir = Vector3.ProjectOnPlane(transform.position - lookatTarget.position, Vector3.up).normalized;
             transform.forward = dir;
