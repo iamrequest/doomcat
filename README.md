@@ -48,7 +48,7 @@ This time around, I tried to make most of the assets myself (3D modeling and aud
 	  * URP
 	  * TextMeshPro
     * Cinemachine
-  * BGM: [NES Shooter Music by SketchyLogic](https://opengameart.org/content/nes-shooter-music-5-tracks-3-jingles)
-  * Kitchen Assets: [Ultimate House Interior Pack by Quaternius](https://www.patreon.com/posts/ultimate-house-38448096)
-  * Pretty sure I might still have some textures from [Kenney's Voxel Pack](https://www.kenney.nl/assets/voxel-pack) as a ground texture in my greybox level
+  * BGM: [NES Shooter Music by SketchyLogic](https://opengameart.org/content/nes-shooter-music-5-tracks-3-jingles), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
+  * Kitchen Assets: [Ultimate House Interior Pack by Quaternius](https://www.patreon.com/posts/ultimate-house-38448096), licensed under [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/)
+  * Pretty sure I might still have some textures from [Kenney's Voxel Pack](https://www.kenney.nl/assets/voxel-pack) as a ground texture in my greybox level. Licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
   * Used a screenshot of [Helltaker](https://store.steampowered.com/app/1289310/Helltaker/) as a reference for an image
